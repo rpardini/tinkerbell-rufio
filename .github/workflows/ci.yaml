@@ -72,18 +72,18 @@ jobs:
         id: image-meta
         uses: docker/metadata-action@v5
         with:
-          images: quay.io/tinkerbell/rufio
+          images: quay.io/tinkerbellrpardini/rufio
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=ref,event=branch,enable=${{ !startsWith(github.ref, 'refs/heads/main') }}
             type=sha
 
-      - name: Docker build quay.io/tinkerbell/rufio
+      - name: Docker build quay.io/tinkerbellrpardini/rufio
         uses: docker/build-push-action@v6
         with:
           context: ./
           file: ./Dockerfile
-          cache-from: type=registry,ref=quay.io/tinkerbell/rufio:latest
+          cache-from: type=registry,ref=quay.io/tinkerbellrpardini/rufio:latest
           tags: ${{ steps.image-meta.outputs.tags }}
           platforms: linux/amd64,linux/arm64
           push: ${{ startsWith(github.ref, 'refs/heads/main') || startsWith(github.ref, 'refs/heads/v') }}
